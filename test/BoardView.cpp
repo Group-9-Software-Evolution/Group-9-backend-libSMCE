@@ -377,8 +377,13 @@ TEST_CASE("BoardView RGB565 cvt", "[BoardView]") {
         std::array<std::byte, std::size(expected_out)> out;
         fb.read_rgb565(out);
         REQUIRE(out == expected_out);
-    }
 
+    }
+    {
+        // Test reverse_byte
+        constexpr std::byte expected_out = '\x0f'_b;
+        REQUIRE(expected_out == fb.reverse_byte('\xf0'_b));
+    }
 
 
     REQUIRE(br.stop());

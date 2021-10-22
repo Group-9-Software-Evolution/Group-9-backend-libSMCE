@@ -354,7 +354,7 @@ bool FrameBuffer::read_rgb444(std::span<std::byte> buf) {
     return true;
 }
 
-std::byte reverse_byte(std::byte b) {
+std::byte FrameBuffer::reverse_byte(std::byte b) {
     b = (b & std::byte{0xF0}) >> 4 | (b & std::byte{0x0F}) << 4;
     b = (b & std::byte{0xCC}) >> 2 | (b & std::byte{0x33}) << 2;
     b = (b & std::byte{0xAA}) >> 1 | (b & std::byte{0x55}) << 1;
