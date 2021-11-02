@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include "ArduinoGraphics.h"
+#include "vector"
 
 #ifndef LIBSMCE_MOCKDISPLAY_H
 #define LIBSMCE_MOCKDISPLAY_H
@@ -22,6 +23,9 @@ class MockDisplayClass : public ArduinoGraphics {
     virtual void endDraw();
 
     virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
+
+  private:
+    std::vector<std::vector<std::vector<uint8_t>>> screen;
 
 };
 
