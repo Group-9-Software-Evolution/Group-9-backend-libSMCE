@@ -69,7 +69,7 @@ target_sources (ArdrivoUDD PRIVATE
     src/Ardrivo/UDDRuntime.cpp
 )
 
-add_library (Ardrivo SHARED)
+add_library (Ardrivo SHARED src/Ardrivo/MockDisplay.cpp include/Ardrivo/MockDisplay.h)
 configure_coverage (Ardrivo)
 set_property (TARGET Ardrivo PROPERTY CXX_EXTENSIONS Off)
 target_include_directories (Ardrivo PRIVATE include/Ardrivo)
@@ -99,6 +99,8 @@ target_sources (Ardrivo PRIVATE
 
     include/Ardrivo/WiFi.h
     src/Ardrivo/WiFi.cpp
+    include/Ardrivo/ArduinoGraphics.h
+    src/Ardrivo/ArduinoGraphics.cpp
 )
 if (SMCE_ARDRIVO_MQTT)
   target_sources (Ardrivo PRIVATE include/Ardrivo/MQTT.h src/Ardrivo/MQTT.cpp)
