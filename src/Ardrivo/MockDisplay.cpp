@@ -4,6 +4,11 @@
 
 #include "MockDisplay.h"
 
+
+// vector to struct with rgb
+// need shared memory to transfer pixel info framebfr
+// godot read framebfr use texturerect
+// method to boardview to set an individual pixel (span)
 MockDisplayClass::MockDisplayClass(int width, int height) :
     ArduinoGraphics(width, height),
     screen(width, std::vector<std::vector<uint8_t>>(height, std::vector<uint8_t>(3, 0)))
