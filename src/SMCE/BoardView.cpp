@@ -29,6 +29,10 @@
 using microsec_clock = boost::date_time::microsec_clock<boost::posix_time::ptime>;
 
 namespace smce {
+
+[[nodiscard]] bool BoardView::stop_requested() noexcept { return m_bdat && m_bdat->stop_requested.load(); }
+
+
 // TODO: possibly rename this function
 static auto get_communication_direction(BoardData* bdat_pointer, std::size_t get_index,
                                         VirtualUartBuffer::Direction get_dir) {
