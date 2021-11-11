@@ -39,8 +39,10 @@ static auto get_communication_direction(BoardData* bdat_pointer, std::size_t get
     case VirtualUartBuffer::Direction::tx:
         return std::tie(chan.tx, chan.tx_mut, chan.max_buffered_tx);
     }
-    unreachable();
+    unreachable();// GCOV_EXCL_LINE
 }
+
+[[nodiscard]] bool BoardView::stop_requested() noexcept { return m_bdat && m_bdat->stop_requested.load(); }
 
 [[nodiscard]] std::string_view BoardView::storage_get_root(Link link, std::uint16_t accessor) noexcept {
     if (!m_bdat)
@@ -138,8 +140,9 @@ VirtualPin VirtualPins::operator[](std::size_t pin_id) noexcept {
 [[nodiscard]] std::size_t VirtualUartBuffer::size() noexcept {
     if (!exists())
         return 0;
-
     auto [d, mut, max_buffered] = get_communication_direction(m_bdat, m_index, m_dir);
+
+
     if (!mut.timed_lock(microsec_clock::universal_time() + boost::posix_time::seconds{1}))
         return 0;
     std::lock_guard lg{mut, std::adopt_lock};
@@ -150,7 +153,9 @@ VirtualPin VirtualPins::operator[](std::size_t pin_id) noexcept {
 std::size_t VirtualUartBuffer::read(std::span<char> buf) noexcept {
     if (!exists())
         return 0;
+
     auto [d, mut, max_buffered] = get_communication_direction(m_bdat, m_index, m_dir);
+
     if (!mut.timed_lock(microsec_clock::universal_time() + boost::posix_time::seconds{1}))
         return 0;
     std::lock_guard lg{mut, std::adopt_lock};
@@ -164,7 +169,9 @@ std::size_t VirtualUartBuffer::write(std::span<const char> buf) noexcept {
     if (!exists())
         return 0;
 
+
     auto [d, mut, max_buffered] = get_communication_direction(m_bdat, m_index, m_dir);
+
     if (!mut.timed_lock(microsec_clock::universal_time() + boost::posix_time::seconds{1}))
         return 0;
     std::lock_guard lg{mut, std::adopt_lock};
@@ -177,6 +184,7 @@ std::size_t VirtualUartBuffer::write(std::span<const char> buf) noexcept {
 [[nodiscard]] char VirtualUartBuffer::front() noexcept {
     if (!exists())
         return '\0';
+        
     auto [d, mut, max_buffered] = get_communication_direction(m_bdat, m_index, m_dir);
 
     if (!mut.timed_lock(microsec_clock::universal_time() + boost::posix_time::seconds{1}))

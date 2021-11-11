@@ -379,7 +379,6 @@ TEST_CASE("BoardView RGB565 cvt", "[BoardView]") {
         REQUIRE(out == expected_out);
     }
 
-
-
+    REQUIRE(br.resume());
     REQUIRE(br.stop());
 }
