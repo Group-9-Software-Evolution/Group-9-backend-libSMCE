@@ -22,6 +22,7 @@
 #include <system_error>
 #include "SMCE/PluginManifest.hpp"
 #include "SMCE/internal/portable/ostream_joiner.hpp"
+#include "test/defs.hpp"
 
 template <class C>
 auto cmake_list(const C& c) {
@@ -67,5 +68,19 @@ std::error_code write_manifest(const PluginManifest& manifest, stdfs::path locat
 
     return {};
 }
+
+smce::PluginManifest arduino_graphics_pm {
+    "arduino_graphics",
+    "0.2",
+    {},
+    {},
+    "https://github.com/ERROPiX/ESP32_AnalogWrite/archive/refs/tags/0.2.zip",
+    "file://" PATCHES_PATH "arduino_graphics",
+    smce::PluginManifest::Defaults::arduino,
+    {},
+    {},
+    {},
+    {}
+};
 
 } // namespace smce
