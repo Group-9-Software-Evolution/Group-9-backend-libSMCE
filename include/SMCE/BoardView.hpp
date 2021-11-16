@@ -209,8 +209,7 @@ class SMCE_API FrameBuffer {
     /// Copies a frame into a packed buffer of pixels in the format GGGGBBBB0000RRRR
     bool read_rgb444(std::span<std::byte>);
     /// Sets a specific pixel in a frame
-    bool set
-
+    bool set_pixel(int x, int y, uint8_t r, uint8_t g, uint8_t b);
 };
 
 class SMCE_API FrameBuffers {

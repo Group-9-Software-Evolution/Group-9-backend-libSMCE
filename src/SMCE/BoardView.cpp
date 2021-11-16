@@ -375,6 +375,22 @@ bool FrameBuffer::read_rgb444(std::span<std::byte> buf) {
     return true;
 }
 
+bool FrameBuffer::set_pixel(int x, int y, uint8_t r, uint8_t g, uint8_t b){
+    if (!exists())
+        return false;
+
+    auto& frame_buf = m_bdat->frame_buffers[m_idx];
+    auto frame_buf_data = frame_buf.data.data();
+
+    frame_buf_data += (get_width()*y*3) + x*3;
+
+    *frame_buf_data++ = (std::byte) r;
+    *frame_buf_data++ = (std::byte) g;
+    *frame_buf_data = (std::byte) b;
+
+    return true;
+}
+
 FrameBuffer FrameBuffers::operator[](std::size_t key) noexcept {
     if (!m_bdat)
         return {m_bdat, 0};

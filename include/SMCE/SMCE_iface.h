@@ -21,6 +21,7 @@
 
 #if defined(_WIN32)
 #    if defined(SMCE_LIB_BUILD)
+#        define SMCE_RT_API
 #        define SMCE_API __declspec(dllexport)
 #    elif !defined(SMCE_WIN32_LINK_STATIC)
 #        define SMCE_API __declspec(dllimport)

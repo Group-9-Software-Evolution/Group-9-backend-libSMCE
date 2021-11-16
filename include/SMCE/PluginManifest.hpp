@@ -54,6 +54,8 @@ struct PluginManifest {
 /// \internal
 SMCE_API std::error_code write_manifest(const PluginManifest& manifest, stdfs::path location) noexcept;
 
+extern SMCE_RT_API smce::PluginManifest arduino_graphics_pm;
+
 } // namespace smce
 
 #endif // LIBSMCE_PLUGINMANIFEST_HPP

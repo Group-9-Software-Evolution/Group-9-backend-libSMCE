@@ -22,7 +22,13 @@
 #include <system_error>
 #include "SMCE/PluginManifest.hpp"
 #include "SMCE/internal/portable/ostream_joiner.hpp"
-#include "test/defs.hpp"
+#include "../test/defs.hpp"
+#include "SMCE/BoardView.hpp"
+#include "SMCE/PluginManifest.hpp"
+#include "SMCE/Sketch.hpp"
+#include "SMCE/SketchConf.hpp"
+#include "SMCE/Toolchain.hpp"
+#include "SMCE/Board.hpp"
 
 template <class C>
 auto cmake_list(const C& c) {
@@ -69,18 +75,50 @@ std::error_code write_manifest(const PluginManifest& manifest, stdfs::path locat
     return {};
 }
 
-smce::PluginManifest arduino_graphics_pm {
+const SMCE_RT_API smce::PluginManifest arduino_graphics_pm {
     "arduino_graphics",
-    "0.2",
+    "1.0.0",
     {},
     {},
-    "https://github.com/ERROPiX/ESP32_AnalogWrite/archive/refs/tags/0.2.zip",
-    "file://" PATCHES_PATH "arduino_graphics",
+    "https://github.com/arduino-libraries/ArduinoGraphics/archive/refs/tags/1.0.0.zip",
+    "file://patches/arduino_graphics",
     smce::PluginManifest::Defaults::arduino,
     {},
     {},
     {},
     {}
 };
+
+
+
+
+
+
+
+
+
+
+smce::Toolchain tc{"/smce_root"};
+
+smce::SketchConfig skc{
+    "arduino:avr:nano",
+    {},
+    { smce::SketchConfig::ArduinoLibrary{"ESP32 AnalogWrite"} },
+    { std::move(arduino_graphics_pm) }
+};
+// clang-format on
+smce::Sketch sk{"/sketches/" "patch", std::move(skc)};
+const auto ec = tc.compile(sk);
+if (ec)
+    std::cerr << tc.build_log().second;
+smce::Board br{};
+// clang-format off
+    smce::BoardConfig bc{
+        /* .pins = */{0},
+        /* .gpio_drivers = */{ smce::BoardConfig::GpioDrivers{0, std::nullopt, smce::BoardConfig::GpioDrivers::AnalogDriver{true, true}} },
+        {},
+        {},
+        {}
+    };
 
 } // namespace smce
