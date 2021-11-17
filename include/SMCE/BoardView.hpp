@@ -256,6 +256,8 @@ class SMCE_API FrameBuffer {
     bool write_rgb565(std::span<const std::byte>);
     /// Copies a frame into an RGB565 buffer
     bool read_rgb565(std::span<std::byte>);
+    /// Sets a specific pixel in a frame
+    bool set_pixel(int x, int y, uint8_t r, uint8_t g, uint8_t b);
 };
 
 class SMCE_API FrameBuffers {
