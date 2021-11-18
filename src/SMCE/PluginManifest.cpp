@@ -76,11 +76,25 @@ const SMCE_API smce::PluginManifest& arduino_graphics_pm{
    "1.0.0",
    {},
    {},
-   "https://github.com/arduino-libraries/ArduinoGraphics/archive/refs/tags/1.0.0.zip",
+   "https://github.com/arduino-libraries/ArduinoGraphics/archive/refs/tags/1.0.0.tar.gz",
    "file://patches/arduino_graphics",
    smce::PluginManifest::Defaults::arduino,
    {},
    {},
    {},
    {}};
+}
+
+const SMCE_API smce::PluginManifest& mkrrgb_pm{
+    "mkrrgb",
+    "1.0.0",
+    {},
+    {},
+    "https://github.com/arduino-libraries/Arduino_MKRRGB/archive/refs/tags/1.0.0.tar.gz",
+    "file://patches/mkrrgb",
+    smce::PluginManifest::Defaults::arduino,
+    {},
+    {},
+    {},
+    {}};
 }
