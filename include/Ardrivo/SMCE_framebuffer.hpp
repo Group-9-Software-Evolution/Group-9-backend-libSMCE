@@ -1,11 +1,11 @@
 #include "SMCE_dll.hpp"
 
 
-struct SMCE_FramebufferImpl;
-struct SMCE__DLL_RT_API SMCE_Framebuffer {
-    void set (int x, int y, uint8_t r, uint8_t g, uint8_t b, int id);
+class SMCE__DLL_RT_API SMCE_Framebuffer {
+  public:
+    SMCE_Framebuffer(int id) : m_id{id};
+    void set (int x, int y, uint8_t r, uint8_t g, uint8_t b);
   private:
-    friend SMCE_FramebufferImpl;
-};
+    int m_id;
 
-extern SMCE__DLL_RT_API SMCE_Framebuffer& Serial;
+};
