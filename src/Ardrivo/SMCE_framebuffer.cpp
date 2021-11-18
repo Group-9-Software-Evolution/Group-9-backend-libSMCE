@@ -11,5 +11,6 @@ using namespace smce;
 
 
 void SMCE_Framebuffer::set(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
+    if(!board_view.frame_buffers[m_id].exists()){ return;}
     board_view.frame_buffers[m_id].set_pixel(x,y,r,g,b);
 }
