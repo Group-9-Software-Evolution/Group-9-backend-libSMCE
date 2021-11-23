@@ -1,14 +1,8 @@
 #include "SMCE_framebuffer.hpp"
 #include "SMCE_dll.hpp"
-#include "SMCE/BoardView.hpp"
 #include <iostream>
-namespace smce {
-extern BoardView board_view;
-extern void maybe_init();
-} // namespace smce
 
 using namespace smce;
-
 
 void SMCE_Framebuffer::set(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
     if(!board_view.frame_buffers[m_id].exists()){ return;}
@@ -22,7 +16,7 @@ const auto error = [=](const char* msg) {
                   << std::endl;
         return -1;
     };
-    auto fb = smce::board_view.frame_buffers[m_id];
+    auto fb = board_view.frame_buffers[m_id];
     if (!fb.exists())
         return error("Framebuffer does not exist");
     if (fb.direction() != smce::FrameBuffer::Direction::out)
@@ -34,7 +28,7 @@ const auto error = [=](const char* msg) {
 }
 
 void SMCE_Framebuffer::end(){
-    auto fb = smce::board_view.frame_buffers[m_id];
+    auto fb = board_view.frame_buffers[m_id];
     fb.set_width(0);
     fb.set_height(0);
     fb.set_freq(0);

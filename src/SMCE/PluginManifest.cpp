@@ -71,7 +71,7 @@ std::error_code write_manifest(const PluginManifest& manifest, stdfs::path locat
    return {};
 }
 
-const SMCE_API smce::PluginManifest& arduino_graphics_pm{
+const SMCE_API smce::PluginManifest& arduino_graphics_pm {
    "arduino_graphics",
    "1.0.0",
    {},
@@ -83,7 +83,6 @@ const SMCE_API smce::PluginManifest& arduino_graphics_pm{
    {},
    {},
    {}};
-}
 
 const SMCE_API smce::PluginManifest& mkrrgb_pm{
     "mkrrgb",
@@ -98,3 +97,6 @@ const SMCE_API smce::PluginManifest& mkrrgb_pm{
     {},
     {}};
 }
+
+
+
