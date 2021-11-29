@@ -1,3 +1,5 @@
+#pragma once
+
 #include "SMCE_dll.hpp"
 #include <cstdint>
 
