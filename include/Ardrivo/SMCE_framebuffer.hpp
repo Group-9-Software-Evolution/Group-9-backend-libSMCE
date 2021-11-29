@@ -1,6 +1,5 @@
 #include "SMCE_dll.hpp"
 #include <cstdint>
-#include "SMCE/BoardView.hpp"
 
 class SMCE__DLL_RT_API SMCE_Framebuffer {
   public:
@@ -15,5 +14,4 @@ class SMCE__DLL_RT_API SMCE_Framebuffer {
   private:
     int m_id;
     bool m_begun = false;
-    smce::BoardView board_view;
 };

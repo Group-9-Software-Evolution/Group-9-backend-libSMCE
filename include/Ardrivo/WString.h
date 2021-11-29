@@ -125,6 +125,12 @@ class SMCE__DLL_RT_API String {
         m_u += String(v).m_u;
         return true;
     }
+    template <class T>
+    String& operator+=(const T& v) {
+        concat(v);
+        return *this;
+    }
+
 
     [[nodiscard]] int compareTo(const String& s) const noexcept;
 
