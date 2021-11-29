@@ -43,60 +43,31 @@ static auto operator<<(std::ostream& os, F&& f)
 namespace smce {
 
 std::error_code write_manifest(const PluginManifest& manifest, stdfs::path location) noexcept {
-   {
-       std::error_code ec;
-       stdfs::create_directories(location.parent_path(), ec);
-       if (ec)
-           return ec;
-   }
+    {
+        std::error_code ec;
+        stdfs::create_directories(location.parent_path(), ec);
+        if (ec)
+            return ec;
+    }
 
-   constexpr std::array<const char*, 5> defaults_strs{"ARDUINO", "SINGLE", "C", "", "CMAKE"};
+    constexpr std::array<const char*, 5> defaults_strs{"ARDUINO", "SINGLE", "C", "", "CMAKE"};
 
-   std::ofstream file{location};
-   file << "# HSD generated\n";
-   file << "include_guard ()\n\n";
-   file << "set (PLUGIN_NAME \"" << manifest.name << "\")\n";
-   file << "set (PLUGIN_VERSION \"" << manifest.version << "\")\n";
-   file << "set (PLUGIN_DEPENDS " << cmake_list(manifest.depends) << ")\n";
-   file << "set (PLUGIN_NEEDS_DEVICES " << cmake_list(manifest.needs_devices) << ")\n";
-   file << "set (PLUGIN_DEV \"" << manifest.development << "\")\n";
-   file << "set (PLUGIN_URI \"" << manifest.uri << "\")\n";
-   file << "set (PLUGIN_PATCH_URI \"" << manifest.patch_uri << "\")\n";
-   file << "set (PLUGIN_DEFAULTS \"" << defaults_strs[static_cast<unsigned>(manifest.defaults)] << "\")\n";
-   file << "set (PLUGIN_INCDIRS " << cmake_list(manifest.incdirs) << ")\n";
-   file << "set (PLUGIN_SOURCES " << cmake_list(manifest.sources) << ")\n";
-   file << "set (PLUGIN_LINKDIRS " << cmake_list(manifest.linkdirs) << ")\n";
-   file << "set (PLUGIN_LINKLIBS " << cmake_list(manifest.linklibs) << ")\n";
+    std::ofstream file{location};
+    file << "# HSD generated\n";
+    file << "include_guard ()\n\n";
+    file << "set (PLUGIN_NAME \"" << manifest.name << "\")\n";
+    file << "set (PLUGIN_VERSION \"" << manifest.version << "\")\n";
+    file << "set (PLUGIN_DEPENDS " << cmake_list(manifest.depends) << ")\n";
+    file << "set (PLUGIN_NEEDS_DEVICES " << cmake_list(manifest.needs_devices) << ")\n";
+    file << "set (PLUGIN_DEV \"" << manifest.development << "\")\n";
+    file << "set (PLUGIN_URI \"" << manifest.uri << "\")\n";
+    file << "set (PLUGIN_PATCH_URI \"" << manifest.patch_uri << "\")\n";
+    file << "set (PLUGIN_DEFAULTS \"" << defaults_strs[static_cast<unsigned>(manifest.defaults)] << "\")\n";
+    file << "set (PLUGIN_INCDIRS " << cmake_list(manifest.incdirs) << ")\n";
+    file << "set (PLUGIN_SOURCES " << cmake_list(manifest.sources) << ")\n";
+    file << "set (PLUGIN_LINKDIRS " << cmake_list(manifest.linkdirs) << ")\n";
+    file << "set (PLUGIN_LINKLIBS " << cmake_list(manifest.linklibs) << ")\n";
 
-   return {};
+    return {};
 }
-
-const SMCE_API smce::PluginManifest& arduino_graphics_pm {
-   "arduino_graphics",
-   "1.0.0",
-   {},
-   {},
-   "https://github.com/arduino-libraries/ArduinoGraphics/archive/refs/tags/1.0.0.tar.gz",
-   "file://patches/arduino_graphics",
-   smce::PluginManifest::Defaults::arduino,
-   {},
-   {},
-   {},
-   {}};
-
-const SMCE_API smce::PluginManifest& mkrrgb_pm{
-    "mkrrgb",
-    "1.0.0",
-    {},
-    {},
-    "https://github.com/arduino-libraries/Arduino_MKRRGB/archive/refs/tags/1.0.0.tar.gz",
-    "file://patches/mkrrgb",
-    smce::PluginManifest::Defaults::arduino,
-    {},
-    {},
-    {},
-    {}};
 }
-
-
-
