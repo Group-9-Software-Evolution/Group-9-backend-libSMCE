@@ -72,7 +72,7 @@ target_sources (ArdrivoUDD PRIVATE
     src/Ardrivo/UDDRuntime.cpp
 )
 
-add_library (Ardrivo SHARED)
+add_library (Ardrivo SHARED include/Ardrivo/SMCE_framebuffer.hpp src/Ardrivo/SMCE_framebuffer.cpp)
 configure_coverage (Ardrivo)
 set_property (TARGET Ardrivo PROPERTY CXX_EXTENSIONS Off)
 if (CMAKE_VERSION VERSION_LESS_EQUAL 3.18) # That was apparently not default
